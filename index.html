@@ -1,189 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ruibin ❤️ Jianuo</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>For Jianuo — A letter from Ruibin</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to bottom right, #ffe6f0, #fff0f5);
-    overflow-x: hidden;
-    text-align: center;
-}
-header {
-    padding: 20px;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #d6336c;
-    position: relative;
-}
-.lang-btn {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    background: #ff4d88;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-.photos {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 20px;
-    flex-wrap: wrap;
-}
-.photos img {
-    width: 40%;
-    max-width: 300px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-#message {
-    margin: 20px auto;
-    font-size: 1.2rem;
-    white-space: pre-wrap;
-    color: #444;
-    max-width: 600px;
-    line-height: 1.6;
-    padding: 0 10px;
-}
-button.reveal {
-    background: #ff4d88;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    font-size: 1.2rem;
-    border-radius: 25px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: 0.3s;
-}
-button.reveal:hover {
-    background: #ff1a66;
-}
-canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-}
+  :root{
+    --bg1:#fff7fb;
+    --bg2:#fff0f6;
+    --accent:#d6336c;
+    --muted:#666;
+    --card:#ffffffcc;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(135deg,var(--bg1),var(--bg2));
+    color:#111;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 24px;
+    gap:12px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .logo{
+    width:48px; height:48px; border-radius:10px;
+    background:linear-gradient(135deg,#ffd7e8,#ffd7e0);
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Playfair Display",serif;
+    color:var(--accent); font-weight:700;
+    box-shadow:0 6px 20px rgba(214,51,108,0.12);
+  }
+  .title{
+    font-family:"Playfair Display",serif;
+    font-size:18px; color:var(--accent); font-weight:700;
+  }
+  .lang {
+    display:flex; gap:8px; align-items:center;
+  }
+  .lang button{
+    background:#fff; border:1px solid #ffdfe8; padding:8px 12px; border-radius:10px;
+    cursor:pointer; font-weight:600;
+  }
+  main{max-width:1000px; margin:12px auto; padding:18px;}
+  .hero{
+    display:flex; gap:24px; align-items:center; justify-content:center; flex-wrap:wrap;
+    margin-top:6px;
+  }
+  .card{
+    background:var(--card);
+    border-radius:14px;
+    padding:18px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.06);
+  }
+  .photo-placeholder{
+    width:300px; height:300px; border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,#fff,#fff7fb);
+    border:6px solid rgba(255,255,255,0.6);
+    box-shadow:0 12px 40px rgba(0,0,0,0.06);
+    font-size:14px; color:var(--muted);
+  }
+  .enter-btn{
+    background:var(--accent); color:white; padding:12px 18px; border-radius:12px; border:none;
+    cursor:pointer; font-weight:700; margin-top:12px;
+  }
+
+  /* Letter section */
+  #letterSection{display:none; margin-top:18px;}
+  .letter{white-space:pre-wrap; line-height:1.8; font-size:16px; background:#fff; padding:20px; border-radius:12px;}
+  .controls{display:flex; justify-content:space-between; gap:12px; margin-top:12px; align-items:center;}
+  .small{font-size:13px; color:var(--muted);}
+
+  /* Commitments cards */
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-top:16px;}
+  .commit{background:#fff; padding:14px; border-radius:12px; text-align:left; transition:transform .25s, box-shadow .25s; cursor:pointer;}
+  .commit:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,0.08);}
+  .commit h3{margin:0 0 8px 0; font-size:16px; color:var(--accent); font-family:"Playfair Display",serif;}
+  .commit p{margin:0; color:var(--muted); font-size:14px;}
+
+  /* mini-game */
+  .game-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px;background:#fff;border-radius:12px;}
+  .heart{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#ff7aa8,#ff3d80);color:white;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(255,61,128,0.18);}
+  .score{font-weight:700;font-size:20px;color:var(--accent)}
+
+  /* fireworks overlay */
+  #effects{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
+
+  footer{margin-top:20px;text-align:center;color:var(--muted);font-size:13px;padding:18px 6px;}
+
+  /* responsive small screens */
+  @media(max-width:700px){
+    .photo-placeholder{width:80vw; height:260px;}
+  }
+
 </style>
 </head>
 <body>
 
 <header>
-    Ruibin ❤️ Jianuo
-    <button class="lang-btn" onclick="toggleLang()">中文</button>
+  <div class="brand">
+    <div class="logo">R</div>
+    <div>
+      <div class="title">For Jianuo</div>
+      <div class="small">From the heart of Ruibin</div>
+    </div>
+  </div>
+  <div class="lang">
+    <div class="small">Language</div>
+    <button id="enBtn">English</button>
+    <button id="zhBtn">中文</button>
+  </div>
 </header>
 
-<div class="photos">
-    <img src="ruibin.jpg" alt="Ruibin">
-    <img src="jianuo.jpg" alt="Jianuo">
-</div>
+<main>
+  <!-- Welcome / Enter -->
+  <section class="hero">
+    <div class="card photo-placeholder">
+      <!-- placeholder image area (replace ruibin.jpg / jianuo.jpg later if you want) -->
+      <div style="text-align:center;padding:8px;">
+        <div style="font-weight:700;margin-bottom:6px">Photos</div>
+        <div class="small">(You can replace with ruibin.jpg & jianuo.jpg in the same folder)</div>
+      </div>
+    </div>
 
-<button class="reveal" onclick="showMessage()">Click to Read</button>
+    <div class="card" style="max-width:560px;">
+      <h2 style="font-family:'Playfair Display',serif;margin:0 0 8px 0">A small letter, a big truth</h2>
+      <div class="small">Click enter to read. The page is bilingual — use the buttons top-right to switch language.</div>
+      <button class="enter-btn" id="enterBtn">ENTER</button>
+      <div class="controls" style="margin-top:12px;">
+        <div class="small">Background music</div>
+        <label style="display:flex;align-items:center;gap:8px"><input id="musicToggle" type="checkbox" checked> ON</label>
+      </div>
+    </div>
+  </section>
 
-<div id="message"></div>
+  <!-- Letter & commits -->
+  <section id="letterSection">
+    <div class="letter card" id="letterBox"></div>
 
-<canvas id="hearts"></canvas>
+    <div style="margin-top:14px;">
+      <h3 style="font-family:'Playfair Display',serif;margin-bottom:8px">Promises I mean</h3>
+      <div class="grid" id="commitGrid">
+        <!-- cards filled by JS -->
+      </div>
+    </div>
 
-<audio id="bgm" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" autoplay loop></audio>
+    <div style="margin-top:16px;">
+      <h3 style="font-family:'Playfair Display',serif;margin-bottom:8px">A small game — collect love</h3>
+      <div class="game-card card" id="gameCard">
+        <div class="small">You have 25 seconds. Click hearts to collect love. Collect enough to unlock a hidden message.</div>
+        <div style="margin-top:10px;display:flex;gap:12px;align-items:center;">
+          <div class="score" id="score">0</div>
+          <div class="small">/ 30</div>
+          <div style="flex:1"></div>
+          <button id="startGame" class="enter-btn">Start</button>
+        </div>
+        <div id="gameArea" style="margin-top:12px;min-height:120px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;"></div>
+        <div style="margin-top:10px;"><button id="revealHidden" class="enter-btn" style="display:none">Reveal Hidden Letter</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<canvas id="effects"></canvas>
+<audio id="bgm" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" loop></audio>
+
+<footer>
+  Made with care — a little website, a lot of truth.
+</footer>
 
 <script>
-let currentLang = 'en';
+/* ------------------ Content (EN / ZH) ------------------ */
+const CONTENT = {
+  en: {
+    letter: `Dear Jianuo,
 
-const texts = {
-    en: `Dear Jianuo,
+We met in high school — you were one year below me, and we didn't have grand moments or dramatic scenes. We simply chatted, shared small jokes, and slowly built a quiet familiarity.
+Those ordinary conversations ended up meaning more than I expected. I found myself looking forward to your messages, replaying the way you described small things, and realizing I cared about every detail of your day.
 
-From the first moment I saw you, something in my heart told me,
-"You are the one I have been waiting for." 
-I remember the day we met — your smile, your voice, the way your eyes seemed to hold an entire world.
-Every conversation, every laugh, every quiet moment we shared became a memory I treasure deeply.
+I don't have many flashy memories to show as proof — just this: the way I think of you when I'm making plans, the way I imagine us traveling together, and the promise that I'll always try to be someone worthy of your trust.
+I want to bring you to all the places you want to go, support your dreams, and remember the tiny preferences that make you, you. I promise to listen more than I speak, to apologize when I'm wrong, and to celebrate your successes like they are my own.
 
-I still recall our first walk together. The air was warm, but the way my heart was racing made me feel like I could barely breathe. 
-That day, I knew you were going to be a special part of my life. 
-Since then, you have brought light into every corner of my world.
+Today I am brave enough to say it clearly: I like you, and I want to be the person who stands by you. Not because I expect perfection, but because I believe in building something honest and kind together. 
+Will you take a chance on this?`,
+    commits: [
+      {title:"Travel with you", desc:"I'll take you to the places on your list, whether near or far."},
+      {title:"Remember the small things", desc:"I will notice the little details you care about — food, colors, rhythms."},
+      {title:"Be your support", desc:"When life gets hard, I will be there to listen and help."},
+      {title:"Respect your dreams", desc:"I'll cheer for your goals and back you in every step."},
+      {title:"Grow together", desc:"We'll learn, make mistakes, and keep improving together."}
+    ],
+    hidden: "You found the hidden message. I like you more than words — if you say yes, I promise to do my best to deserve your trust."
+  },
+  zh: {
+    letter: `亲爱的佳诺：
 
-I am not perfect, but I promise to always be honest with you, to stand by your side in both sunshine and rain.
-I want to share my dreams with you, and build new ones together.
+我们是在高中认识的——你比我小一届。我们没有什么轰轰烈烈的剧情，也没有特别惊天动地的时刻，只有日常的聊天、偶尔的笑话和一点点的默契。
+正是这些看似平凡的对话，让你在我心里变得越来越重要。我会期待你的消息，会在心里重复你说的每一句小事，慢慢发现我开始在意你的一切小细节。
 
-So here I am, asking from the bottom of my heart:
-Will you let me be the one who makes you smile every single day? ❤️
-`,
-    zh: `亲爱的佳诺：
+我没有很多惊天动地的证明，但我可以给你我的心意：我会带你去你想去的地方，支持你的梦想，记住你喜欢的每一种小习惯。我承诺多听少说，犯错会道歉，成功与你同庆。
 
-从第一次见到你，我的心里就有一个声音在说：
-“就是她，我一直等待的人。”
-我记得我们第一次见面的那天——你的笑容、你的声音，还有你眼中仿佛藏着的整个世界。
-每一次对话、每一次笑声、每一个安静的瞬间，
-都成了我心底最珍贵的回忆。
-
-我还记得我们第一次一起散步。那天的空气很温暖，
-可我的心跳快得让我几乎忘了呼吸。
-那一刻，我就知道，你一定会在我的生命中变得无比特别。
-从那以后，你给我的世界带来了光。
-
-我并不完美，但我承诺永远对你坦诚，
-在阳光灿烂和风雨交加的日子里都陪伴你。
-我想和你分享我的梦想，也想和你一起创造新的梦想。
-
-所以，现在我用最真诚的心问你：
-你愿意让我成为每天都能让你微笑的那个人吗？ ❤️
-`
+今天我鼓起勇气说清楚：我喜欢你，我希望能成为那个陪在你身边的人。不是因为我想做承诺的样子，而是因为我愿意和你一步步把平凡的日子过得有温度。
+你愿不愿意给我们一个机会？`,
+    commits: [
+      {title:"带你去旅行", desc:"无论远近，我想把你想去的地方一一实现。"},
+      {title:"记住你的喜好", desc:"我会留心你在意的小事——食物、颜色、习惯。"},
+      {title:"做你的依靠", desc:"当你难过或疲惫时，我会在你身边支持你。"},
+      {title:"支持你的梦想", desc:"我会为你的目标加油，陪你向前。"},
+      {title:"一起成长", desc:"我们会在尝试与错误中互相扶持，成长为更好的人。"}
+    ],
+    hidden: "你发现了隐藏信件。我对你的喜欢超过语言——如果你愿意答应，我会尽我所能配得上你的信任。"
+  }
 };
 
-function toggleLang() {
-    currentLang = currentLang === 'en' ? 'zh' : 'en';
-    document.querySelector('.lang-btn').textContent = currentLang === 'en' ? '中文' : 'English';
-    if (document.getElementById('message').style.display === 'block') {
-        document.getElementById('message').textContent = texts[currentLang];
-    }
-}
+/* ------------------ Language switch ------------------ */
+let lang = 'en';
+const enBtn = document.getElementById('enBtn');
+const zhBtn = document.getElementById('zhBtn');
+enBtn.addEventListener('click', ()=>{ lang='en'; refreshContent(); });
+zhBtn.addEventListener('click', ()=>{ lang='zh'; refreshContent(); });
 
-function showMessage() {
-    const message = document.getElementById('message');
-    message.style.display = 'block';
-    message.textContent = texts[currentLang];
-}
-
-const canvas = document.getElementById("hearts");
-const ctx = canvas.getContext("2d");
-let hearts = [];
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
-function createHeart() {
-    hearts.push({
-        x: Math.random() * canvas.width,
-        y: -20,
-        size: Math.random() * 20 + 10,
-        speed: Math.random() * 2 + 1
+function refreshContent(){
+  // update letter and commits
+  const c = CONTENT[lang];
+  document.getElementById('letterBox').textContent = c.letter;
+  // rebuild commits
+  const grid = document.getElementById('commitGrid');
+  grid.innerHTML = '';
+  c.commits.forEach((it,idx)=>{
+    const card = document.createElement('div');
+    card.className = 'commit';
+    card.innerHTML = `<h3>${it.title}</h3><p>${it.desc}</p>`;
+    card.addEventListener('click', ()=>{
+      // flip style via alert (simple) or modal
+      alert(it.title + "\\n\\n" + it.desc);
     });
+    grid.appendChild(card);
+  });
 }
-function drawHearts() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = "rgba(255,0,100,0.8)";
-    for (let h of hearts) {
-        ctx.beginPath();
-        ctx.moveTo(h.x, h.y);
-        ctx.arc(h.x - h.size/2, h.y, h.size/2, 0, Math.PI, true);
-        ctx.arc(h.x + h.size/2, h.y, h.size/2, 0, Math.PI, true);
-        ctx.closePath();
-        ctx.fill();
-        h.y += h.speed;
+
+/* ------------------ enter flow ------------------ */
+document.getElementById('enterBtn').addEventListener('click', ()=>{
+  document.getElementById('letterSection').scrollIntoView({behavior:'smooth'});
+  document.getElementById('letterSection').style.display = 'block';
+  refreshContent();
+});
+
+/* ------------------ music ------------------ */
+const bgm = document.getElementById('bgm');
+const musicToggle = document.getElementById('musicToggle');
+bgm.volume = 0.45;
+if(!musicToggle.checked){ bgm.pause(); }
+musicToggle.addEventListener('change', ()=>{ if(musicToggle.checked) bgm.play().catch(()=>{}); else bgm.pause(); });
+
+/* ------------------ heart floating background ------------------ */
+const fxCanvas = document.getElementById('effects');
+const fxCtx = fxCanvas.getContext('2d');
+let particles = [];
+function resize(){ fxCanvas.width = innerWidth; fxCanvas.height = innerHeight; }
+window.addEventListener('resize', resize); resize();
+
+function spawnParticle(){
+  particles.push({
+    x: Math.random()*fxCanvas.width,
+    y: -10,
+    size: Math.random()*18+8,
+    speed: Math.random()*1.6 + 0.6,
+    sway: Math.random()*1.6 - 0.8
+  });
+}
+function drawParticles(){
+  fxCtx.clearRect(0,0,fxCanvas.width,fxCanvas.height);
+  fxCtx.fillStyle = 'rgba(255,80,140,0.9)';
+  particles.forEach(p=>{
+    fxCtx.beginPath();
+    // simple heart-ish shape using arc pair
+    fxCtx.moveTo(p.x, p.y);
+    fxCtx.arc(p.x - p.size/2, p.y, p.size/2, 0, Math.PI, true);
+    fxCtx.arc(p.x + p.size/2, p.y, p.size/2, 0, Math.PI, true);
+    fxCtx.closePath();
+    fxCtx.fill();
+    p.y += p.speed;
+    p.x += p.sway;
+  });
+  particles = particles.filter(p=> p.y < fxCanvas.height + 20);
+}
+setInterval(spawnParticle, 380);
+setInterval(drawParticles, 30);
+
+/* ------------------ mini-game: collect hearts ------------------ */
+let score = 0;
+let gameTimer = null;
+let timeLeft = 25;
+const scoreEl = document.getElementById('score');
+const gameArea = document.getElementById('gameArea');
+const startBtn = document.getElementById('startGame');
+const revealBtn = document.getElementById('revealHidden');
+startBtn.addEventListener('click', startGame);
+
+function randomPos(){
+  return {x: Math.random()*240, y: Math.random()*60};
+}
+
+function startGame(){
+  score = 0;
+  timeLeft = 25;
+  scoreEl.textContent = score;
+  gameArea.innerHTML = '';
+  startBtn.disabled = true;
+  revealBtn.style.display = 'none';
+  // spawn clickable hearts
+  gameTimer = setInterval(()=>{
+    // create a heart element
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.textContent = '❤';
+    h.style.transform = `translate(${Math.random()*220}px, ${Math.random()*40}px)`;
+    h.onclick = ()=>{ score+=1; scoreEl.textContent = score; h.remove(); checkWin(); };
+    gameArea.appendChild(h);
+    // remove after some time to avoid clutter
+    setTimeout(()=>{ if(h.parentNode) h.remove(); }, 4000);
+  }, 450);
+  // countdown
+  const countdown = setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){
+      clearInterval(countdown);
+      stopGame();
     }
-    hearts = hearts.filter(h => h.y < canvas.height + 20);
+  }, 1000);
+  // auto-stop after 25s
+  setTimeout(()=>{ stopGame(); }, 25000);
 }
-setInterval(createHeart, 300);
-setInterval(drawHearts, 30);
+
+function stopGame(){
+  clearInterval(gameTimer);
+  startBtn.disabled = false;
+  if(score >= 30){
+    revealBtn.style.display = 'inline-block';
+  } else {
+    alert(lang==='en' ? "Game over — try again to unlock the hidden letter." : "游戏结束——再试一次以解锁隐藏信件。");
+  }
+}
+
+function checkWin(){ if(score >= 30){ stopGame(); } }
+
+revealBtn.addEventListener('click', ()=>{
+  const txt = CONTENT[lang].hidden;
+  alert(txt);
+  runFireworks();
+});
+
+/* ------------------ fireworks (simple) ------------------ */
+const canvas = document.createElement('canvas');
+canvas.style.position='fixed'; canvas.style.left=0; canvas.style.top=0; canvas.style.pointerEvents='none'; canvas.style.zIndex=9999;
+document.body.appendChild(canvas);
+const cctx = canvas.getContext('2d');
+function resizeCanvas(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+function runFireworks(){
+  const particles = [];
+  const cx = innerWidth/2; const cy = innerHeight/3;
+  for(let i=0;i<160;i++){
+    particles.push({x:cx,y:cy,vx:(Math.random()-0.5)*8,vy:(Math.random()-0.9)*8,life:Math.random()*60+30,color:`hsl(${Math.random()*360},80%,60%)`});
+  }
+  function frame(){
+    cctx.fillStyle='rgba(0,0,0,0.14)'; cctx.fillRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.x += p.vx; p.y += p.vy; p.vy += 0.12; p.life -= 1;
+      cctx.beginPath(); cctx.fillStyle = p.color; cctx.globalAlpha = Math.max(0,p.life/80);
+      cctx.arc(p.x,p.y,3,0,Math.PI*2); cctx.fill();
+    });
+    for(let i=particles.length-1;i>=0;i--) if(particles[i].life<=0) particles.splice(i,1);
+    if(particles.length>0) requestAnimationFrame(frame); else cctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+  frame();
+}
+
+/* ------------------ init ------------------ */
+refreshContent();
 </script>
 
 </body>
