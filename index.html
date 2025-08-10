@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: #ffe6f0;
+    background: linear-gradient(to bottom right, #ffe6f0, #fff0f5);
     overflow-x: hidden;
     text-align: center;
 }
@@ -17,6 +17,18 @@ header {
     font-size: 2rem;
     font-weight: bold;
     color: #d6336c;
+    position: relative;
+}
+.lang-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: #ff4d88;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
 }
 .photos {
     display: flex;
@@ -31,7 +43,16 @@ header {
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
-button {
+#message {
+    margin: 20px auto;
+    font-size: 1.2rem;
+    white-space: pre-wrap;
+    color: #444;
+    max-width: 600px;
+    line-height: 1.6;
+    padding: 0 10px;
+}
+button.reveal {
     background: #ff4d88;
     color: white;
     border: none;
@@ -42,15 +63,8 @@ button {
     margin-top: 20px;
     transition: 0.3s;
 }
-button:hover {
+button.reveal:hover {
     background: #ff1a66;
-}
-#message {
-    display: none;
-    margin-top: 20px;
-    font-size: 1.3rem;
-    white-space: pre-wrap;
-    color: #444;
 }
 canvas {
     position: fixed;
@@ -62,24 +76,81 @@ canvas {
 </head>
 <body>
 
-<header>Ruibin ❤️ Jianuo</header>
+<header>
+    Ruibin ❤️ Jianuo
+    <button class="lang-btn" onclick="toggleLang()">中文</button>
+</header>
 
 <div class="photos">
     <img src="ruibin.jpg" alt="Ruibin">
     <img src="jianuo.jpg" alt="Jianuo">
 </div>
 
-<button onclick="showMessage()">点我 / Click me</button>
+<button class="reveal" onclick="showMessage()">Click to Read</button>
 
 <div id="message"></div>
 
-<!-- 爱心飘落动画 -->
 <canvas id="hearts"></canvas>
 
-<!-- 背景音乐 -->
 <audio id="bgm" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" autoplay loop></audio>
 
 <script>
+let currentLang = 'en';
+
+const texts = {
+    en: `Dear Jianuo,
+
+From the first moment I saw you, something in my heart told me,
+"You are the one I have been waiting for." 
+I remember the day we met — your smile, your voice, the way your eyes seemed to hold an entire world.
+Every conversation, every laugh, every quiet moment we shared became a memory I treasure deeply.
+
+I still recall our first walk together. The air was warm, but the way my heart was racing made me feel like I could barely breathe. 
+That day, I knew you were going to be a special part of my life. 
+Since then, you have brought light into every corner of my world.
+
+I am not perfect, but I promise to always be honest with you, to stand by your side in both sunshine and rain.
+I want to share my dreams with you, and build new ones together.
+
+So here I am, asking from the bottom of my heart:
+Will you let me be the one who makes you smile every single day? ❤️
+`,
+    zh: `亲爱的佳诺：
+
+从第一次见到你，我的心里就有一个声音在说：
+“就是她，我一直等待的人。”
+我记得我们第一次见面的那天——你的笑容、你的声音，还有你眼中仿佛藏着的整个世界。
+每一次对话、每一次笑声、每一个安静的瞬间，
+都成了我心底最珍贵的回忆。
+
+我还记得我们第一次一起散步。那天的空气很温暖，
+可我的心跳快得让我几乎忘了呼吸。
+那一刻，我就知道，你一定会在我的生命中变得无比特别。
+从那以后，你给我的世界带来了光。
+
+我并不完美，但我承诺永远对你坦诚，
+在阳光灿烂和风雨交加的日子里都陪伴你。
+我想和你分享我的梦想，也想和你一起创造新的梦想。
+
+所以，现在我用最真诚的心问你：
+你愿意让我成为每天都能让你微笑的那个人吗？ ❤️
+`
+};
+
+function toggleLang() {
+    currentLang = currentLang === 'en' ? 'zh' : 'en';
+    document.querySelector('.lang-btn').textContent = currentLang === 'en' ? '中文' : 'English';
+    if (document.getElementById('message').style.display === 'block') {
+        document.getElementById('message').textContent = texts[currentLang];
+    }
+}
+
+function showMessage() {
+    const message = document.getElementById('message');
+    message.style.display = 'block';
+    message.textContent = texts[currentLang];
+}
+
 const canvas = document.getElementById("hearts");
 const ctx = canvas.getContext("2d");
 let hearts = [];
@@ -113,47 +184,6 @@ function drawHearts() {
 }
 setInterval(createHeart, 300);
 setInterval(drawHearts, 30);
-
-const message = document.getElementById("message");
-function showMessage() {
-    const text = 
-`佳诺，
-从第一次见到你，我就知道，
-你在我生命中一定会变得特别。
-和你在一起的每一刻，
-都让我感到快乐和温暖。
-
-Jianuo,
-From the moment I first saw you,
-I knew you would become someone special in my life.
-Every moment with you
-fills me with happiness and warmth.
-
-❤️ 你愿意和我在一起吗？ ❤️
-
-（点击下方小按钮试试看~）`;
-    let i = 0;
-    message.style.display = "block";
-    message.innerHTML = "";
-    function typeWriter() {
-        if (i < text.length) {
-            message.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 50);
-        } else {
-            let eggBtn = document.createElement("button");
-            eggBtn.textContent = "我也喜欢你 💖";
-            eggBtn.onclick = fireworks;
-            message.appendChild(document.createElement("br"));
-            message.appendChild(eggBtn);
-        }
-    }
-    typeWriter();
-}
-
-function fireworks() {
-    alert("💖 我们在一起吧！ / Let’s be together! 💖");
-}
 </script>
 
 </body>
