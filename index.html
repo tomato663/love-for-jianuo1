@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruibin ❤️ Jianuo</title>
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #ffe6f0;
+    overflow-x: hidden;
+    text-align: center;
+}
+header {
+    padding: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #d6336c;
+}
+.photos {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px;
+    flex-wrap: wrap;
+}
+.photos img {
+    width: 40%;
+    max-width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+button {
+    background: #ff4d88;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+button:hover {
+    background: #ff1a66;
+}
+#message {
+    display: none;
+    margin-top: 20px;
+    font-size: 1.3rem;
+    white-space: pre-wrap;
+    color: #444;
+}
+canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<header>Ruibin ❤️ Jianuo</header>
+
+<div class="photos">
+    <img src="ruibin.jpg" alt="Ruibin">
+    <img src="jianuo.jpg" alt="Jianuo">
+</div>
+
+<button onclick="showMessage()">点我 / Click me</button>
+
+<div id="message"></div>
+
+<!-- 爱心飘落动画 -->
+<canvas id="hearts"></canvas>
+
+<!-- 背景音乐 -->
+<audio id="bgm" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" autoplay loop></audio>
+
+<script>
+const canvas = document.getElementById("hearts");
+const ctx = canvas.getContext("2d");
+let hearts = [];
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+function createHeart() {
+    hearts.push({
+        x: Math.random() * canvas.width,
+        y: -20,
+        size: Math.random() * 20 + 10,
+        speed: Math.random() * 2 + 1
+    });
+}
+function drawHearts() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "rgba(255,0,100,0.8)";
+    for (let h of hearts) {
+        ctx.beginPath();
+        ctx.moveTo(h.x, h.y);
+        ctx.arc(h.x - h.size/2, h.y, h.size/2, 0, Math.PI, true);
+        ctx.arc(h.x + h.size/2, h.y, h.size/2, 0, Math.PI, true);
+        ctx.closePath();
+        ctx.fill();
+        h.y += h.speed;
+    }
+    hearts = hearts.filter(h => h.y < canvas.height + 20);
+}
+setInterval(createHeart, 300);
+setInterval(drawHearts, 30);
+
+const message = document.getElementById("message");
+function showMessage() {
+    const text = 
+`佳诺，
+从第一次见到你，我就知道，
+你在我生命中一定会变得特别。
+和你在一起的每一刻，
+都让我感到快乐和温暖。
+
+Jianuo,
+From the moment I first saw you,
+I knew you would become someone special in my life.
+Every moment with you
+fills me with happiness and warmth.
+
+❤️ 你愿意和我在一起吗？ ❤️
+
+（点击下方小按钮试试看~）`;
+    let i = 0;
+    message.style.display = "block";
+    message.innerHTML = "";
+    function typeWriter() {
+        if (i < text.length) {
+            message.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
+        } else {
+            let eggBtn = document.createElement("button");
+            eggBtn.textContent = "我也喜欢你 💖";
+            eggBtn.onclick = fireworks;
+            message.appendChild(document.createElement("br"));
+            message.appendChild(eggBtn);
+        }
+    }
+    typeWriter();
+}
+
+function fireworks() {
+    alert("💖 我们在一起吧！ / Let’s be together! 💖");
+}
+</script>
+
+</body>
+</html>
